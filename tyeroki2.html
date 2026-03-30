@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>チェロキー語入門</title>
+</head>
+<body>
+
+<h2>チェロキー文字から平仮名への変換</h2>
+
+<h6>※チェロキー語には“め”及び“ん”に当該するものは基本的にありません｡</h6>
+    
+<input type="text" id="input" placeholder="チェロキー文字をペースト">
+<button onclick="run()">変換</button>
+    
+    <h7>    by 乙竹岩造</h7>
+    <p>
+<a href="tyeroki1.html?guid=89C8AB13-18BE-4877-8898-87F296568BD4&type=file">平仮名からチェロキー文字への変換はこちら</a>
+<p id="output"></p>
+
+<script>
+const map = {
+  "Ꭰ":"あ","Ꭲ":"い","Ꭴ":"う","Ꭱ":"え","Ꭳ":"お",
+  "Ꭷ":"か","Ꭹ":"き","Ꭻ":"く","Ꭸ":"け","Ꭺ":"こ",
+  "Ꮜ":"さ","Ꮟ":"し","Ꮡ":"す","Ꮞ":"せ","Ꮠ":"そ",
+  "Ꮤ":"た","Ꮵ":"ち","Ꮷ":"つ","Ꮦ":"て","Ꮩ":"と",
+  "Ꮎ":"な","Ꮒ":"に","Ꮔ":"ぬ","Ꮑ":"ね","Ꮓ":"の",
+  "Ꭽ":"は","Ꭿ":"ひ","Ꮁ":"ふ","Ꭾ":"へ","Ꮀ":"ほ",
+  "Ꮉ":"ま","Ꮋ":"み","Ꮍ":"む","Ꮌ":"も",
+  "Ꮿ":"や","Ᏻ":"ゆ","Ᏺ":"よ",
+  "Ꮃ":"ら","Ꮅ":"り","Ꮇ":"る","Ꮄ":"れ","Ꮆ":"ろ",
+  "Ꮹ":"わ"
+};
+
+function run() {
+  let input = document.getElementById("input").value;
+  let result = "";
+  for (let c of input) {
+    result += map[c] || c;
+  }
+  document.getElementById("output").innerText = result;
+}
+</script>
+
+</body>
+</html>
