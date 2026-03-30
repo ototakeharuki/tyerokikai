@@ -6,20 +6,38 @@
 </head>
 <body>
 
-<h2>チェロキー文字から平仮名への変換</h2>
+<h2> チェロキー文字から平仮名への変換 </h2>
 
-<h6>※チェロキー語には“め”及び“ん”に当該するものは基本的にありません｡</h6>
+<h6>※チェロキー語には“め”及び“ん”に当該するものは基本的にありません。</h6>
     
-<input type="text" id="input" placeholder="チェロキー文字をペースト">
+<input type="text" id="input" placeholder="チェロキー文字を入力">
 <button onclick="run()">変換</button>
-    
-    <h7>    by 乙竹岩造</h7>
-    <p>
-<a href="index.html">平仮名からチェロキー文字への変換はこちら</a>
+
+<button onclick="copyText()">コピー</button>
+
+<p>
+
+<h7>by 乙竹岩造</h7>
+
+<p>
+
+<button onclick="shareSite()">このサイトを共有</button>
+
+<p>
+
+<a href="tyeroki1kai.html?guid=2FF37824-7AED-4665-86C5-24D1CE115B08&type=file">
+
+平仮名からチェロキー文字への変換はこちら
+
+</a>
+</p>
+
 <p id="output"></p>
 
 <script>
+
 const map = {
+
   "Ꭰ":"あ","Ꭲ":"い","Ꭴ":"う","Ꭱ":"え","Ꭳ":"お",
   "Ꭷ":"か","Ꭹ":"き","Ꭻ":"く","Ꭸ":"け","Ꭺ":"こ",
   "Ꮜ":"さ","Ꮟ":"し","Ꮡ":"す","Ꮞ":"せ","Ꮠ":"そ",
@@ -30,6 +48,7 @@ const map = {
   "Ꮿ":"や","Ᏻ":"ゆ","Ᏺ":"よ",
   "Ꮃ":"ら","Ꮅ":"り","Ꮇ":"る","Ꮄ":"れ","Ꮆ":"ろ",
   "Ꮹ":"わ"
+
 };
 
 function run() {
@@ -40,6 +59,49 @@ function run() {
   }
   document.getElementById("output").innerText = result;
 }
+
+function copyText() {
+  const output = document.getElementById("output");
+  if (!output.innerText) { 
+    alert("変換結果がありません"); 
+    return; 
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = output.innerText;
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    alert("コピーしました！");
+  } catch (err) {
+    alert("コピーできませんでした");
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function shareSite() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: "チェロキー文字変換サイト", url: url })
+      .catch(err => console.log(err));
+  } else {
+    const textarea = document.createElement("textarea");
+    textarea.value = url;
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand("copy");
+      alert("URLをコピーしました！");
+    } catch {
+      alert("共有できませんでした");
+    }
+    document.body.removeChild(textarea);
+  }
+}
+
 </script>
 
 </body>
