@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>チェロキー語入門</title>
+</head>
+<body>
+
+<h2>平仮名読みからチェロキー文字への変換</h2>
+
+<h6>※チェロキー語には“め”及び“ん”に当該するものは基本的にありません｡そのため、“め”及び“ん”を入力するとその文字は変換されません。</h6>
+    
+<input type="text" id="input" placeholder="ひらがな入力">
+<button onclick="run()">変換</button>
+
+<!-- コピー・共有ボタンを追加 -->
+<button onclick="copyText()">コピー</button>
+<button onclick="shareSite()">共有</button>
+    
+<h7>by 乙竹岩造</h7>
+
+<p>
+<a href="tyeroki2.html?guid=89C8AB13-18BE-4877-8898-87F296568BD4&type=file">
+チェロキー文字から平仮名への変換はこちら
+</a>
+</p>
+
+<p id="output"></p>
+
+<script>
+// 平仮名→チェロキー文字マッピング
+const map = {
+  "あ":"Ꭰ","い":"Ꭲ","う":"Ꭴ","え":"Ꭱ","お":"Ꭳ",
+  "か":"Ꭷ","き":"Ꭹ","く":"Ꭻ","け":"Ꭸ","こ":"Ꭺ",
+  "さ":"Ꮜ","し":"Ꮟ","す":"Ꮡ","せ":"Ꮞ","そ":"Ꮠ",
+  "た":"Ꮤ","ち":"Ꮵ","つ":"Ꮷ","て":"Ꮦ","と":"Ꮩ",
+  "な":"Ꮎ","に":"Ꮒ","ぬ":"Ꮔ","ね":"Ꮑ","の":"Ꮓ",
+  "は":"Ꭽ","ひ":"Ꭿ","ふ":"Ꮁ","へ":"Ꭾ","ほ":"Ꮀ",
+  "ま":"Ꮉ","み":"Ꮋ","む":"Ꮍ","も":"Ꮌ",
+  "や":"Ꮿ","ゆ":"Ᏻ","よ":"Ᏺ",
+  "ら":"Ꮃ","り":"Ꮅ","る":"Ꮇ","れ":"Ꮄ","ろ":"Ꮆ",
+  "わ":"Ꮹ"
+};
+
+// 入力→変換
+function run() {
+  let input = document.getElementById("input").value;
+  let result = "";
+  for (let c of input) {
+    result += map[c] || c;
+  }
+  document.getElementById("output").innerText = result;
+}
+
+// コピー用
+function copyText() {
+  const text = document.getElementById("output").innerText;
+  if (text) {
+    navigator.clipboard.writeText(text)
+      .then(() => alert("コピーしました！"))
+      .catch(() => alert("コピーできませんでした"));
+  } else {
+    alert("変換結果がありません");
+  }
+}
+
+// 共有用
+function shareSite() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: "チェロキー文字変換サイト", url: url })
+      .catch(err => console.log(err));
+  } else {
+    navigator.clipboard.writeText(url)
+      .then(() => alert("URLをコピーしました！"));
+  }
+}
+
+// 入力時にリアルタイム変換したい場合は下のコメントを外す
+// document.getElementById('input').addEventListener('input', run);
+</script>
+
+</body>
+</html>
